@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason C. Cherubini</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FAFAF8;
+    --bg-warm: #F3EDE4;
+    --bg-dark: #1C1C1E;
+    --text: #1a1a1a;
+    --text-secondary: #6B6B6B;
+    --text-light: #E8E4DF;
+    --accent: #C6923F;
+    --accent-hover: #A87830;
+    --accent-subtle: rgba(198,146,63,0.12);
+    --border: #E2DDD5;
+    --card-bg: #ffffff;
+    --max-width: 900px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(250,250,248,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 0 2rem;
+  }
+  nav .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+  }
+  nav .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+  nav .nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 400;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--text); }
+
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 1px; }
+
+  @media (max-width: 680px) {
+    .menu-toggle { display: block; }
+    nav .nav-links {
+      display: none;
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: rgba(250,250,248,0.98);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      padding: 1.5rem 2rem 2rem;
+      gap: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    nav .nav-links.open { display: flex; }
+  }
+
+  .section-inner { max-width: var(--max-width); width: 100%; margin: 0 auto; }
+
+  /* ========== HOME ========== */
+  .home-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 4rem;
+  }
+  .home-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 720px) {
+    .home-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .home-photo { order: -1; }
+  }
+  .home-section h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.8rem;
+  }
+  .home-section h1 .accent-word { color: var(--accent); }
+  .home-section .bio {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+  }
+  .home-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .home-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .home-links a.primary { background: var(--text); color: var(--bg); }
+  .home-links a.primary:hover { background: #333; }
+  .home-links a.secondary { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+  .home-links a.secondary:hover { border-color: var(--text); }
+
+  .home-photo {
+    width: 300px; height: 380px;
+    background: var(--bg-warm);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+  .home-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  @media (max-width: 720px) { .home-photo { width: 220px; height: 280px; } }
+
+  /* ========== AS SEEN IN RIBBON ========== */
+  .press-ribbon {
+    padding: 2.5rem 2rem 2rem;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .press-ribbon .section-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .press-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+  .press-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem 2rem;
+    max-width: 800px;
+  }
+  .press-logos a {
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    opacity: 0.35;
+    transition: opacity 0.3s;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .press-logos a:hover { opacity: 0.8; }
+  .press-logos a.sans-logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+  }
+  @media (max-width: 600px) {
+    .press-logos { gap: 1.2rem; }
+    .press-logos a { font-size: 0.9rem; }
+    .press-logos a.sans-logo { font-size: 0.72rem; }
+  }
+
+  /* ========== PULL QUOTE ========== */
+  .pull-quote-band {
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .pull-quote-band.warm { background: var(--bg-warm); }
+  .pull-quote-band.dark { background: var(--bg-dark); }
+  .pull-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+  .pull-quote-band.dark .pull-quote { color: #fff; }
+  .pull-quote .pq-accent { color: var(--accent); }
+
+  /* ========== PAGE SECTIONS ========== */
+  .page-section { padding: 6rem 2rem; }
+  .band-light { background: var(--bg); }
+  .band-warm { background: var(--bg-warm); }
+  .band-dark { background: var(--bg-dark); color: var(--text-light); }
+  .band-dark h2 { color: #fff; }
+  .band-dark .section-intro { color: rgba(232,228,223,0.7); }
+
+  .page-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+  .page-section .section-intro {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    font-style: italic;
+  }
+
+  .subsection-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  /* ========== RESEARCH ========== */
+  .pub-list { list-style: none; }
+  .pub-item { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-title { font-weight: 500; font-size: 1rem; margin-bottom: 0.3rem; }
+  .pub-meta { font-size: 0.85rem; color: var(--text-secondary); }
+
+  .scholar-link {
+    display: inline-block;
+    margin-top: 2rem;
+    font-size: 0.88rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1.5px solid var(--accent);
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+  }
+  .scholar-link:hover { opacity: 0.7; }
+
+  /* ========== TEACHING ========== */
+  .teaching-text {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.85;
+    max-width: 660px;
+  }
+  .teaching-text p { margin-bottom: 1rem; }
+  .teaching-text p:last-child { margin-bottom: 0; }
+
+  /* ========== FILM POSTER GALLERY ========== */
+  .poster-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 720px) { .poster-gallery { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 480px) { .poster-gallery { grid-template-columns: repeat(2, 1fr); } }
+
+  .poster-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    transition: transform 0.3s;
+  }
+  .poster-card:hover { transform: translateY(-4px); }
+  .poster-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .poster-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    padding: 1.2rem 0.8rem 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .poster-card:hover .poster-overlay { opacity: 1; }
+  .poster-overlay .p-title { font-size: 0.82rem; font-weight: 600; color: #fff; line-height: 1.3; }
+  .poster-overlay .p-role { font-size: 0.72rem; color: rgba(255,255,255,0.65); margin-top: 0.2rem; }
+
+  .imdb-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1.5px solid var(--accent);
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+  }
+  .imdb-link:hover { opacity: 0.7; }
+
+  /* ========== CONTACT ========== */
+  .contact-layout {
+    max-width: 480px;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-form input, .contact-form textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+  .contact-form button {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 0.85rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .contact-form button:hover { background: #333; }
+
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .social-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .social-links a:hover { opacity: 0.7; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  /* SCROLL ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo">Jason C. Cherubini</a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#film">Film</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="home-section band-light">
+  <div class="section-inner">
+    <div class="home-layout">
+      <div class="home-text">
+        <h1>Finance Professor.<br>Film Producer.<br><span class="accent-word">Perpetual Builder.</span></h1>
+        <p class="bio">
+          I'm an Executive-in-Residence and Assistant Teaching Professor of Finance at Loyola University Maryland's Sellinger School of Business. I also produce feature films, advise startups, and research how technology is reshaping how we invest and how we teach. Before academia, I was a CPA, a startup CFO, and the guy managing film budgets on set in South America.
+        </p>
+        <div class="home-links">
+          <a href="#research" class="primary">View Research</a>
+          <a href="#contact" class="secondary">Get in Touch</a>
+        </div>
+      </div>
+      <div class="home-photo">
+        <img src="jason-cherubini.jpg" alt="Jason C. Cherubini">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AS SEEN IN -->
+<div class="press-ribbon">
+  <div class="section-inner">
+    <div class="press-label">As Seen In</div>
+    <div class="press-logos">
+      <a href="https://www.bloomberg.com/news/articles/2021-09-17/how-to-protect-your-small-business-against-the-next-pandemic?embedded-checkout=true" target="_blank">Bloomberg</a>
+      <a href="https://www.forbes.com/sites/edwardsegal/2021/10/22/the-unfolding-crisis-lessons-from-deadly-shooting-involving-actor-alec-baldwin/" target="_blank">Forbes</a>
+      <a href="https://variety.com/2018/film/news/jean-claude-van-damme-dolph-lundgren-1202665610/" target="_blank">Variety</a>
+      <a href="https://deadline.com/2022/03/encanto-actress-carolina-gaitan-jack-ryans-allan-hawco-starring-in-colombia-set-thriller-quicksand-1234986913/" target="_blank">Deadline</a>
+      <a href="https://www.nbcwashington.com/news/consumer/tariffs-and-your-money-when-to-expect-higher-prices-on-produce-cars-everyday-goods/3882638/" target="_blank" class="sans-logo">NBC News</a>
+      <a href="https://www.cbsnews.com/baltimore/news/maryland-hong-kong-post-shipping-china-tariffs/" target="_blank" class="sans-logo">CBS News</a>
+      <a href="https://www.foxnews.com/entertainment/trumps-hollywood-advisors-signal-political-shift-tinseltown-experts" target="_blank" class="sans-logo">Fox News</a>
+      <a href="https://www.fastcompany.com/90836060/tax-tips-tiktok-social-media" target="_blank">Fast Company</a>
+      <a href="https://money.usnews.com/money/personal-finance/saving-and-budgeting/articles/when-saving-money-can-cost-you-money" target="_blank" class="sans-logo">U.S. News</a>
+      <a href="https://www.journalofaccountancy.com/newsletters/extra-credit/make-lectures-interesting/" target="_blank">Journal of Accountancy</a>
+      <a href="https://www.cfobrew.com/stories/2024/08/26/warner-brothers-paramount-s-billion-dollar-impairments-don-t-mean-the-sky-is-falling" target="_blank" class="sans-logo">CFO Brew</a>
+      <a href="https://www.fm-magazine.com/news/2020/sep/jason-cherubini-cpa-dawns-light-media-cfo/" target="_blank" class="sans-logo">FM Magazine</a>
+      <a href="https://canvasrebel.com/meet-jason-cherubini/" target="_blank">CanvasRebel</a>
+    </div>
+  </div>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="pull-quote-band warm">
+  <div class="pull-quote">
+    "How people <span class="pq-accent">invest</span>, how technology reshapes <span class="pq-accent">finance</span>, and how we teach the next generation to navigate <span class="pq-accent">both</span>."
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<section id="research" class="page-section band-light">
+  <div class="section-inner fade-in">
+    <h2>Research</h2>
+    <p class="section-intro">Bridging practitioner insight with academic rigor.</p>
+
+    <div class="subsection-heading">Representative Publications</div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <div class="pub-title">For Love or Money: Investor Motivations in Equity-Based Crowdfunding</div>
+        <div class="pub-meta"><em>Communications of the Association for Information Systems (CAIS)</em> &middot; 2023</div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-title">User-Oriented IFRS Education in Introductory Accounting at US Academic Institutions</div>
+        <div class="pub-meta">With Hong Zhu, Kevin Rich &amp; Alfred Michenzi &middot; <em>Issues in Accounting Education</em> &middot; 2011</div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-title">Emotional Labor in Public Accounting</div>
+        <div class="pub-meta">With Kevin Rich &middot; <em>Advances in Accounting Education</em> &middot; 2015</div>
+      </li>
+    </ul>
+
+    <a href="https://scholar.google.com/citations?user=i1x344QAAAAJ" target="_blank" class="scholar-link">Full Publication List on Google Scholar &nearr;</a>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section id="teaching" class="page-section band-warm">
+  <div class="section-inner fade-in">
+    <h2>Teaching</h2>
+    <p class="section-intro">I teach finance the way I learned it â by doing it.</p>
+
+    <div class="teaching-text">
+      <p>I teach undergraduate and graduate finance at Loyola University Maryland's Sellinger School of Business, and guest lecture at Nordakademie in Hamburg, Germany and other institutions across the US and Europe. I bring startup operations, film finance, and real deal experience into the classroom â not just textbook models.</p>
+      <p>My current curriculum work focuses on integrating cryptocurrency and blockchain into finance courses, using AI tools to enhance business education, and exploring gamification as a way to deepen student engagement. I've presented at AAC&U on artificial intelligence in the classroom and am actively developing new approaches to teaching emerging topics in finance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FILM PULL QUOTE -->
+<div class="pull-quote-band dark">
+  <div class="pull-quote">
+    Before the classroom, I was <span class="pq-accent">on set</span>. Sometimes I still am.
+  </div>
+</div>
+
+<!-- FILM & CREATIVE -->
+<section id="film" class="page-section band-dark">
+  <div class="section-inner fade-in">
+    <h2>Film &amp; Creative</h2>
+    <p class="section-intro">Co-founder and CFO of Dawn's Light Media. 45+ feature films produced across action, thriller, family, and drama.</p>
+
+    <div class="poster-gallery">
+      <div class="poster-card">
+        <img src="https://media.themoviedb.org/t/p/w300_and_h450_face/tIcZAB5AmRN8fIDXfDZ2aUok9qa.jpg" alt="Black Water poster" loading="lazy">
+        <div class="poster-overlay">
+          <div class="p-title">Black Water (2018)</div>
+          <div class="p-role">Producer &middot; Van Damme &amp; Lundgren</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <img src="https://media.themoviedb.org/t/p/w300_and_h450_face/6CoRTJTmijhBLJTUNoVSUNxZMEI.jpg" alt="Money Plane poster" loading="lazy">
+        <div class="poster-overlay">
+          <div class="p-title">Money Plane (2020)</div>
+          <div class="p-role">Executive Producer</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <img src="https://media.themoviedb.org/t/p/w300_and_h450_face/zedUsN2fxRYhrp8k4uHVZuoEPaj.jpg" alt="Rogue Hostage poster" loading="lazy">
+        <div class="poster-overlay">
+          <div class="p-title">Rogue Hostage (2021)</div>
+          <div class="p-role">Executive Producer</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <img src="https://media.themoviedb.org/t/p/w300_and_h450_face/cVLfO3CbVg8p5Qcaifq6AidOe2w.jpg" alt="Quicksand poster" loading="lazy">
+        <div class="poster-overlay">
+          <div class="p-title">Quicksand (2023)</div>
+          <div class="p-role">Producer</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <img src="https://media.themoviedb.org/t/p/w300_and_h450_face/1pSk6DU0oY7BWTK4F9keqjeCxB7.jpg" alt="Altitude poster" loading="lazy">
+        <div class="poster-overlay">
+          <div class="p-title">Altitude (2017)</div>
+          <div class="p-role">Executive Producer</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://www.imdb.com/name/nm6959055/" target="_blank" class="imdb-link">Full Credits on IMDb &nearr;</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="page-section band-warm">
+  <div class="section-inner fade-in">
+    <h2>Get in Touch</h2>
+    <p class="section-intro">Whether it's research, film, teaching, or something else entirely.</p>
+
+    <div class="contact-layout">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('This form is a preview â connect it to a backend or Wix form handler to go live.');">
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Your email" required>
+        <textarea placeholder="What's on your mind?"></textarea>
+        <button type="submit">Send</button>
+      </form>
+
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/jasoncherubini/" target="_blank">LinkedIn</a>
+        <a href="https://scholar.google.com/citations?user=i1x344QAAAAJ" target="_blank">Google Scholar</a>
+        <a href="https://www.imdb.com/name/nm6959055/" target="_blank">IMDb</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Jason C. Cherubini
+</footer>
+
+<script>
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id'); });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
