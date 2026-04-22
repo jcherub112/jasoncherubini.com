@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI4All — Dr. Jason Cherubini</title>
-<meta name="description" content="Free, open AI courses by Dr. Jason Cherubini — for faculty, students, and everybody reclaiming hours with AI.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free, open AI courses by Dr. Jason Cherubini — for faculty, students, and everybody reclaiming hours with AI.">
+  <title>AI4All — Dr. Jason Cherubini</title>
 <style>
   :root {
     --green: #1A5632;
@@ -143,6 +143,9 @@
     color: var(--muted);
     border: 1px dashed var(--line);
   }
+  .card .badge.tool {
+    background: var(--gold);
+  }
   .card h3 {
     font-size: 24px;
     margin: 0 0 8px;
@@ -162,7 +165,7 @@
     font-size: 15px;
   }
   .card .cta::after {
-    content: "→";
+    content: "\2192";
     transition: transform .15s ease;
   }
   .card:hover .cta::after { transform: translateX(4px); }
@@ -231,14 +234,14 @@
 
 <header class="topbar">
   <div class="logo">AI<span class="accent">4</span>All</div>
-  <a class="top-link" href="/">← jasoncherubini.com</a>
+  <a class="top-link" href="/">&#8592; jasoncherubini.com</a>
 </header>
 
 <section class="hero">
   <h1>AI<span class="accent">4</span>All</h1>
   <p class="tag">Free, open AI courses by Dr. Jason Cherubini. Built for faculty, students, and everybody trying to reclaim hours with AI.</p>
   <div class="pills">
-    <span class="pill">Loyola · Sellinger</span>
+    <span class="pill">Loyola &middot; Sellinger</span>
     <span class="pill gold">Open access</span>
     <span class="pill">Self-paced</span>
   </div>
@@ -251,7 +254,7 @@
     <a class="card" href="https://jcherub112.github.io/ai-for-faculty/">
       <span class="badge">Faculty</span>
       <h3>AI for Faculty</h3>
-      <p>A practical guide for university faculty — integrate AI into teaching, research, and service without compromising academic integrity.</p>
+      <p>A practical guide for university faculty &mdash; integrate AI into teaching, research, and service without compromising academic integrity.</p>
       <span class="cta">Open course</span>
     </a>
 
@@ -259,7 +262,7 @@
     <a class="card" href="https://jcherub112.github.io/ai-for-students/">
       <span class="badge">Students</span>
       <h3>AI for Students</h3>
-      <p>Use AI to learn faster, think sharper, and produce better work — while staying on the right side of academic honesty.</p>
+      <p>Use AI to learn faster, think sharper, and produce better work &mdash; while staying on the right side of academic honesty.</p>
       <span class="cta">Open course</span>
     </a>
 
@@ -267,7 +270,7 @@
     <a class="card" href="https://jcherub112.github.io/ai-for-everybody/">
       <span class="badge">Everybody</span>
       <h3>AI for Everybody</h3>
-      <p>12 modules to reclaim 5–10 hours per week. Lifestyle design meets AI for knowledge workers — faculty, consultants, founders, managers, creators.</p>
+      <p>12 modules to reclaim 5&ndash;10 hours per week. Lifestyle design meets AI for knowledge workers &mdash; faculty, consultants, founders, managers, creators.</p>
       <span class="cta">Open course</span>
     </a>
 
@@ -275,8 +278,16 @@
     <a class="card" href="https://jcherub112.github.io/teaching-with-ai/">
       <span class="badge">Teachers</span>
       <h3>Teaching with AI</h3>
-      <p>Practical AI moves for the classroom — lesson design, assessment, feedback, and assignments that work with AI rather than against it.</p>
+      <p>Practical AI moves for the classroom &mdash; lesson design, assessment, feedback, and assignments that work with AI rather than against it.</p>
       <span class="cta">Open course</span>
+    </a>
+
+    <!-- AI Workflow Health Check -->
+    <a class="card" href="https://jcherub112.github.io/ai-healthcheck/">
+      <span class="badge tool">Tool</span>
+      <h3>AI Workflow Health Check</h3>
+      <p>A 5-minute diagnostic that scores your AI workflow across five dimensions: time saved, error rate, adoption, satisfaction, and ROI.</p>
+      <span class="cta">Open tool</span>
     </a>
 
     <!-- Placeholder for the next course -->
@@ -292,18 +303,14 @@
 
 <section class="about">
   <h2>About AI4All</h2>
-  <p>Every course here is free, self-paced, and built for people who want to do real work with AI — not just play with it. Videos, workbooks, walk-away assets, and a Custom GPT coach for each one.</p>
-  <p class="signature">— Dr. Jason Cherubini, Loyola University Maryland</p>
+  <p>Every course here is free, self-paced, and built for people who want to do real work with AI &mdash; not just play with it. Videos, workbooks, walk-away assets, and a Custom GPT coach for each one.</p>
+  <p class="signature">&mdash; Dr. Jason Cherubini, Loyola University Maryland</p>
 </section>
 
 <footer>
-  <div>&copy; <span id="year"></span> Dr. Jason Cherubini · <a href="/">jasoncherubini.com</a></div>
+  <div>&copy; <span id="year">2026</span> Dr. Jason Cherubini &middot; <a href="/">jasoncherubini.com</a></div>
   <a class="back" href="/">Back to main site</a>
 </footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
 
 </body>
 </html>
