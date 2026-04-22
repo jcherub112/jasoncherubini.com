@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI4All — Dr. Jason Cherubini</title>
+<meta name="description" content="Free, open AI courses by Dr. Jason Cherubini — for faculty, students, and everybody reclaiming hours with AI.">
+<style>
+  :root {
+    --green: #1A5632;
+    --green-dark: #0d3f22;
+    --green-light: #E8F5E9;
+    --green-pale: #F0F7F2;
+    --gold: #C4972F;
+    --gold-light: #FDF6E3;
+    --ink: #1a1a1a;
+    --muted: #5a5a5a;
+    --line: #e4e4e4;
+    --bg: #fafaf7;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--green-dark); margin: 0 0 .5em; }
+  a { color: var(--green); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Top bar */
+  .topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green-dark);
+  }
+  .logo .accent { color: var(--gold); }
+  .top-link {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Hero */
+  .hero {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 24px 40px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .hero h1 {
+    font-size: 56px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin: 0 0 16px;
+  }
+  .hero h1 .accent { color: var(--gold); }
+  .hero .tag {
+    font-size: 20px;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 24px;
+  }
+  .hero .pills {
+    display: inline-flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pill {
+    background: var(--green-light);
+    color: var(--green-dark);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .pill.gold { background: var(--gold-light); color: #7a5a10; }
+
+  /* Course grid */
+  .grid-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 24px 64px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26,86,50,.08);
+    border-color: var(--green);
+  }
+  .card .badge {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    align-self: flex-start;
+  }
+  .card .badge.coming {
+    background: #fff;
+    color: var(--muted);
+    border: 1px dashed var(--line);
+  }
+  .card h3 {
+    font-size: 24px;
+    margin: 0 0 8px;
+  }
+  .card p {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0 0 20px;
+    flex: 1;
+  }
+  .card .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .card .cta::after {
+    content: "→";
+    transition: transform .15s ease;
+  }
+  .card:hover .cta::after { transform: translateX(4px); }
+  .card.placeholder {
+    background: var(--green-pale);
+    border-style: dashed;
+  }
+  .card.placeholder:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--line);
+  }
+  .card.placeholder .cta {
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .card.placeholder .cta::after { content: ""; }
+
+  /* About section */
+  .about {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .about h2 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .about p {
+    color: var(--muted);
+    font-size: 16px;
+  }
+  .about .signature {
+    margin-top: 20px;
+    color: var(--green-dark);
+    font-family: Georgia, serif;
+    font-style: italic;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--green-dark);
+    color: #cfe8d5;
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 14px;
+  }
+  footer a { color: var(--gold); }
+  footer .back {
+    display: inline-block;
+    margin-top: 8px;
+    color: #cfe8d5;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 20px 24px; }
+    .hero h1 { font-size: 40px; }
+    .hero .tag { font-size: 17px; }
+    .card { padding: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">AI<span class="accent">4</span>All</div>
+  <a class="top-link" href="/">← jasoncherubini.com</a>
+</header>
+
+<section class="hero">
+  <h1>AI<span class="accent">4</span>All</h1>
+  <p class="tag">Free, open AI courses by Dr. Jason Cherubini. Built for faculty, students, and everybody trying to reclaim hours with AI.</p>
+  <div class="pills">
+    <span class="pill">Loyola · Sellinger</span>
+    <span class="pill gold">Open access</span>
+    <span class="pill">Self-paced</span>
+  </div>
+</section>
+
+<main class="grid-wrap">
+  <div class="grid">
+
+    <!-- AI for Faculty -->
+    <a class="card" href="https://jcherub112.github.io/ai-for-faculty/">
+      <span class="badge">Faculty</span>
+      <h3>AI for Faculty</h3>
+      <p>A practical guide for university faculty — integrate AI into teaching, research, and service without compromising academic integrity.</p>
+      <span class="cta">Open course</span>
+    </a>
+
+    <!-- AI for Students -->
+    <a class="card" href="https://jcherub112.github.io/ai-for-students/">
+      <span class="badge">Students</span>
+      <h3>AI for Students</h3>
+      <p>Use AI to learn faster, think sharper, and produce better work — while staying on the right side of academic honesty.</p>
+      <span class="cta">Open course</span>
+    </a>
+
+    <!-- AI for Everybody -->
+    <a class="card" href="https://jcherub112.github.io/ai-for-everybody/">
+      <span class="badge">Everybody</span>
+      <h3>AI for Everybody</h3>
+      <p>12 modules to reclaim 5–10 hours per week. Lifestyle design meets AI for knowledge workers — faculty, consultants, founders, managers, creators.</p>
+      <span class="cta">Open course</span>
+    </a>
+
+    <!-- Placeholder for the next course -->
+    <div class="card placeholder">
+      <span class="badge coming">Coming soon</span>
+      <h3>More courses ahead</h3>
+      <p>New courses are added as they're built. Bookmark this page.</p>
+      <span class="cta">Stay tuned</span>
+    </div>
+
+  </div>
+</main>
+
+<section class="about">
+  <h2>About AI4All</h2>
+  <p>Every course here is free, self-paced, and built for people who want to do real work with AI — not just play with it. Videos, workbooks, walk-away assets, and a Custom GPT coach for each one.</p>
+  <p class="signature">— Dr. Jason Cherubini, Loyola University Maryland</p>
+</section>
+
+<footer>
+  <div>&copy; <span id="year"></span> Dr. Jason Cherubini · <a href="/">jasoncherubini.com</a></div>
+  <a class="back" href="/">Back to main site</a>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
