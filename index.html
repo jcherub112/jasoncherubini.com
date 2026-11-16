@@ -358,6 +358,19 @@
     align-self: flex-start;
   }
   .contact-form button:hover { background: #333; }
+  .contact-email {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 8px;
+    padding: 0.85rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .contact-email:hover { background: #333; }
 
   .social-links {
     display: flex;
@@ -578,12 +591,9 @@
     <p class="section-intro">Whether it's research, film, teaching, or something else entirely.</p>
 
     <div class="contact-layout">
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('This form is a preview — connect it to a backend or Wix form handler to go live.');">
-        <input type="text" placeholder="Your name" required>
-        <input type="email" placeholder="Your email" required>
-        <textarea placeholder="What's on your mind?"></textarea>
-        <button type="submit">Send</button>
-      </form>
+      <div class="contact-form">
+        <a class="contact-email" href="mailto:jccherubini@loyola.edu">Email jccherubini@loyola.edu</a>
+      </div>
 
       <div class="social-links">
         <a href="https://www.linkedin.com/in/jasoncherubini/" target="_blank">LinkedIn</a>
